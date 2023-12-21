@@ -23,10 +23,11 @@ extern const char* file_name;
 
 %token BREAK CASE CONTINUE CONST DEFAULT
 %token DO ELSE FOR IF RETURN SWITCH IMPORT
-%token NAMESPACE CLASS STRUCT WHILE
+%token NAMESPACE CLASS STRUCT WHILE START
 %token IN TO AS YIELD EXIT INLINE
 %token EQU NEQU LORE GORE OR AND
 %token TRY EXCEPT RAISE CTOR DTOR
+%token ADD SUB MUL DIV MOD
 
 %token<type> NUMBER NOTHING STRING LIST DICT BOOLEAN PRINT TRACE TYPE
 %token<scope> PUBLIC PRIVATE PROTECTED
@@ -56,15 +57,20 @@ module
     | module module_item {}
     ;
 
-module_item
+namespace_item
     : namespace_definition {}
     | class_definition {}
     | struct_definition {}
     | var_definition {}
     | scope_operator {}
     | func_definition {}
+    ;
+
+module_item
+    : namespace_item
     | IMPORT formatted_strg {}
     | IMPORT formatted_strg AS SYMBOL {}
+    | START func_body {}
     ;
 
 scope_operator
@@ -117,12 +123,24 @@ var_definition
     | var_declaration '=' dict_init {}
     ;
 
+list_init_element
+    : expression {}
+    | dict_init {}
+    ;
+
+list_init_list
+    : list_init_element {}
+    | list_init_list ',' list_init_element {}
+    ;
+
 list_init 
-    : '[' expression_list ']' {}
+    : '[' list_init_list ']' {}
     ;
 
 dict_init_element
-    : SYMBOL ':' expression {}
+    : LITERAL_STRG ':' expression {}
+    | LITERAL_STRG ':' list_init {}
+    | list_init {}
     ;
 
 dict_init_list
@@ -189,7 +207,7 @@ expression
     | expression AND expression {}
     | expression '<' expression {}
     | expression '>' expression {}
-    | expression '=' expression {}
+    /* | expression '=' expression {} */
     | expression '^' expression {}
     | '-' expression %prec UNARY {}
     | '!' expression %prec UNARY {}
@@ -209,8 +227,13 @@ namespace_name
     | error {}
     ;
 
+namespace_list
+    : namespace_item {}
+    | namespace_list namespace_item {}
+    ;
+
 namespace_definition
-    : namespace_name '{' module '}' {}
+    : namespace_name '{' namespace_list '}' {}
     | namespace_name '{' '}' {}
     ;
 
@@ -237,6 +260,7 @@ class_definition_element
     | func_declaration {}
     | func_definition {}
     | scope_operator {}
+    | struct_definition {}
     | error {}
     ;
 
@@ -259,12 +283,12 @@ class_body
     ;
 
 func_definition
-    : type_name SYMBOL ':' SYMBOL '(' ')' func_body {}
-    | type_name SYMBOL ':' SYMBOL '(' var_declaration_list ')' func_body {}
-    | SYMBOL ':' CTOR func_body {}
-    | SYMBOL ':' CTOR '(' ')' func_body {}
-    | SYMBOL ':' CTOR '(' var_declaration_list ')' func_body {}
-    | SYMBOL ':' DTOR func_body {}
+    : type_name SYMBOL '@' SYMBOL '(' ')' func_body {}
+    | type_name SYMBOL '@' SYMBOL '(' var_declaration_list ')' func_body {}
+    | SYMBOL '@' CTOR func_body {}
+    | SYMBOL '@' CTOR '(' ')' func_body {}
+    | SYMBOL '@' CTOR '(' var_declaration_list ')' func_body {}
+    | SYMBOL '@' DTOR func_body {}
     | type_name SYMBOL '(' ')' func_body {}
     | type_name SYMBOL '(' var_declaration_list ')' func_body {}
     ;
@@ -276,6 +300,18 @@ func_body
 
 func_body_element
     : var_definition {}
+    | compound_reference '=' expression {}
+    | compound_reference ADD expression {}
+    | compound_reference SUB expression {}
+    | compound_reference MUL expression {}
+    | compound_reference DIV expression {}
+    | compound_reference MOD expression {}
+    | while_clause {}
+    | do_clause {}
+    | for_clause {}
+    | if_clause {}
+    | try_clause {}
+    | switch_clause {}
     | BREAK {}
     | CONTINUE {}
     | TRACE {}
@@ -284,16 +320,10 @@ func_body_element
     | TYPE '(' compound_reference ')' {}
     | EXIT '(' expression ')'{}
     | PRINT '(' expression_list ')' {}
-    | RETURN '(' compound_reference ')' {}
+    | RETURN '(' expression ')' {}
     | RETURN '(' ')' {}
     | RETURN {}
     | RAISE '(' SYMBOL ',' formatted_strg ')' {}
-    | while_clause {}
-    | do_clause {}
-    | for_clause {}
-    | if_clause {}
-    | try_clause {}
-    | switch_clause {}
     | error {}
     ;
 
@@ -304,10 +334,14 @@ func_body_element_list
 
 while_clause
     : WHILE '(' expression ')' func_body {}
+    | WHILE '(' ')' func_body {}
+    | WHILE func_body {}
     ;
 
 do_clause
     : DO func_body WHILE '(' expression ')' {}
+    | DO func_body WHILE '(' ')' {}
+    | DO func_body WHILE {}
     ;
 
 for_operand
@@ -317,8 +351,10 @@ for_operand
 
     /* compound reference must refer to a valid RHS variable object */
 for_clause
-    : FOR for_operand IN expression func_body {}
-    | FOR for_operand IN expression TO LITERAL_NUM func_body {}
+    : FOR '(' for_operand IN expression ')' func_body {}
+    | FOR '(' for_operand IN expression TO LITERAL_NUM ')' func_body {}
+    | FOR '(' ')' func_body {}
+    | FOR func_body {}
     ;
 
 if_clause
@@ -395,6 +431,8 @@ case_body
 %%
 
 static int yyreport_syntax_error (const yypcontext_t *ctx) {
+
+    fprintf(stderr, ">>>>> ");
 
     int res = 0;
     if(get_line_no() >= 0)

@@ -103,6 +103,7 @@ int yycolumn = 1;
 "raise"     { return RAISE; }
 "create"    { return CTOR; }
 "destroy"   { return DTOR; }
+"start"     { return START; }
 
 "namespace" { return NAMESPACE; }
 "class"     { return CLASS; }
@@ -139,6 +140,12 @@ int yycolumn = 1;
 "or" { return OR; }
 "&&" { return AND; }
 "and" { return AND; }
+
+"+=" { return ADD; }
+"-=" { return SUB; }
+"*=" { return MUL; }
+"/=" { return DIV; }
+"%=" { return MOD; }
 
 "+" { return '+'; }
 "-" { return '-'; }
