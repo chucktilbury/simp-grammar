@@ -66,6 +66,7 @@ int yycolumn = 1;
 %x SQUOTES
 %x DQUOTES
 %x INLINE_BLOCK
+%x COMMENT
 %option noinput nounput
 %option yylineno
 %option noyywrap
@@ -167,7 +168,7 @@ int yycolumn = 1;
     }
 
 <INLINE_BLOCK>[^\}\n]*  { __append_str(yytext); }
-<INLINE_BLOCK>\n     { yylineno++; __append_char('\n'); }
+<INLINE_BLOCK>\n     { __append_char('\n'); }
 <INLINE_BLOCK>"}" {
         yylval.str = (char*)_copy_str(buffer);
         BEGIN(INITIAL);
@@ -219,7 +220,7 @@ int yycolumn = 1;
 <DQUOTES>\\[0-7]{1,3} { __append_char((char)strtol(yytext + 1, 0, 8)); }
 <DQUOTES>\\[xX][0-9a-fA-F]{1,3} { __append_char((char)strtol(yytext + 2, 0, 16)); }
 <DQUOTES>[^\\\"\n]*  { __append_str(yytext); }
-<DQUOTES>\n     { yylineno++; } /* track line numbers, but strip new line */
+<DQUOTES>\n     { } /* track line numbers, but strip new line */
 
     /* single quoted strings are absolute literals */
 \'  {
@@ -236,17 +237,19 @@ int yycolumn = 1;
 
 <SQUOTES>[^\\'\n]*  { __append_str(yytext); }
 <SQUOTES>\\.    { __append_str(yytext); }
-<SQUOTES>\n     {
-        __append_str(yytext);
-        yylineno++;
-    } /* don't strip new lines */
+<SQUOTES>\n     { __append_str(yytext); } /* don't strip new lines */
+
+    /* comments: If there is no newline at the end of the file, and the last 
+       thing is a comment, then this is required to prevent a warning or a 
+       syntax error. */
+";" { BEGIN(COMMENT); }
+<COMMENT>[^\n]* {}
+<COMMENT><<EOF>> { BEGIN(INITIAL); }
+<COMMENT>\n { BEGIN(INITIAL); /* TODO: support winders and whack */ }
 
 .   {
         printf("Warning: unrecognized character: %c (0x%02X)\n", yytext[0], yytext[0]);
     }
-
-    /* comments */
-";".*\n {}
 
 <<EOF>> {
 

@@ -9,3 +9,6 @@ These are random notes to help me keep track of things.
 
 Scenario 1 will be faster, since there is less to compile. That could be very significant, given the speed that Bison runs at. 
 Scenario 2 will be simpler because there is no need to write a separate driver to perfom the compile and link of the emitted code. Also, there is no need to manage more than one mode in the parser.
+
+**need to work on error recovery**
+

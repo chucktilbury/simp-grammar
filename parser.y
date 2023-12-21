@@ -132,9 +132,9 @@ dict_init_list
 
 dict_init
     : '[' dict_init_list ']' {}
+    | error {}
     ;
 
-    /* TODO: array initializer list */
 array_reference_param
     : '[' expression ']' {}
     | '[' array_reference_param ']' {}
@@ -200,11 +200,13 @@ expression
 expression_list
     : expression {}
     | expression_list ',' expression {}
+    | error {}
     ;
 
 namespace_name
     : NAMESPACE SYMBOL {}
     | NAMESPACE scope_operator SYMBOL {}
+    | error {}
     ;
 
 namespace_definition
@@ -222,6 +224,7 @@ class_definition
     : class_name class_body {}
     | class_name '(' ')' class_body {}
     | class_name '(' compound_reference ')' class_body {}
+    | error {}
     ;
 
     /* structs cannot have constructors and destructors */
@@ -234,6 +237,7 @@ class_definition_element
     | func_declaration {}
     | func_definition {}
     | scope_operator {}
+    | error {}
     ;
 
 func_declaration
@@ -275,8 +279,9 @@ func_body_element
     | BREAK {}
     | CONTINUE {}
     | TRACE {}
-    | INLINE {}
+    | INLINE { /*printf("%s\n", yylval.str);*/ }
     | YIELD '(' compound_reference ')' {}
+    | TYPE '(' compound_reference ')' {}
     | EXIT '(' expression ')'{}
     | PRINT '(' expression_list ')' {}
     | RETURN '(' compound_reference ')' {}
@@ -289,6 +294,7 @@ func_body_element
     | if_clause {}
     | try_clause {}
     | switch_clause {}
+    | error {}
     ;
 
 func_body_element_list
@@ -366,6 +372,7 @@ except_clause
 
 switch_clause
     : SWITCH '(' expression ')' case_body {}
+    ;
 
 case_clause
     : CASE '(' literal_value ')' func_body {}

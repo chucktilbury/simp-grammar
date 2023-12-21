@@ -14,3 +14,14 @@ ClAsS something (asd.wer.sdf) {
     string sdf ()
 }
 
+num something:asd() {
+
+    inline{ this is some random text 
+        with a newline }
+}
+
+; end of file
+; asd
+
+
+string sdf () {}
