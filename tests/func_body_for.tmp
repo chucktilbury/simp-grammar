@@ -1,0 +1,3 @@
+>>>>> func_body_for.simp:12:21: syntax error: expected SYMBOL or '(' or '[' or '.' before IN
+>>>>> func_body_for.simp:12:35: syntax error before ')'
+>>>>> func_body_for.simp:20:5: syntax error: expected SYMBOL or '.' before '}'

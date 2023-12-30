@@ -1,0 +1,8 @@
+>>>>> funcs9.simp:2:1: syntax error before '/'
+>>>>> funcs9.simp:4:2: syntax error: expected SYMBOL before '*'
+>>>>> funcs9.simp:16:5: syntax error before '}'
+>>>>> funcs9.simp:19:5: syntax error before '}'
+>>>>> funcs9.simp:22:5: syntax error before '}'
+>>>>> funcs9.simp:25:5: syntax error before '}'
+>>>>> funcs9.simp:32:5: syntax error before '}'
+>>>>> funcs9.simp:36:9: syntax error before '}'

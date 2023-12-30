@@ -1,0 +1,45 @@
+>>>>> tree.simp:2:1: syntax error before '/'
+>>>>> tree.simp:13:18: syntax error before SYMBOL
+>>>>> tree.simp:13:44: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DEFAULT
+>>>>> tree.simp:16:27: syntax error before SYMBOL
+>>>>> tree.simp:20:21: syntax error before '.'
+>>>>> tree.simp:20:34: syntax error before SYMBOL
+>>>>> tree.simp:24:21: syntax error before '.'
+>>>>> tree.simp:24:43: syntax error before SYMBOL
+>>>>> tree.simp:26:5: syntax error: expected SYMBOL or '(' or '[' or '.' before '}'
+>>>>> tree.simp:34:18: syntax error before SYMBOL
+>>>>> tree.simp:37:19: syntax error before SYMBOL
+>>>>> tree.simp:39:5: syntax error: expected SYMBOL or '.' before '}'
+>>>>> tree.simp:41:17: syntax error before '.'
+>>>>> tree.simp:41:47: syntax error before SYMBOL
+>>>>> tree.simp:44:9: syntax error before IF
+>>>>> tree.simp:45:38: syntax error: expected SYMBOL before ')'
+>>>>> tree.simp:46:28: syntax error: expected SYMBOL or '(' or '[' or '.' before '='
+>>>>> tree.simp:50:13: syntax error: expected SYMBOL or '.' before '}'
+>>>>> tree.simp:53:37: syntax error: expected SYMBOL before ')'
+>>>>> tree.simp:54:27: syntax error: expected SYMBOL or '(' or '[' or '.' before '='
+>>>>> tree.simp:58:13: syntax error: expected SYMBOL or '.' before '}'
+>>>>> tree.simp:61:20: syntax error: expected SYMBOL before PRINT
+>>>>> tree.simp:61:76: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> tree.simp:66:22: syntax error before '.'
+>>>>> tree.simp:66:53: syntax error before SYMBOL
+>>>>> tree.simp:70:9: syntax error before IF
+>>>>> tree.simp:72:9: syntax error: expected SYMBOL or '.' before '}'
+>>>>> tree.simp:75:9: syntax error: expected SYMBOL or '.' before '}'
+>>>>> tree.simp:81:17: syntax error before '.'
+>>>>> tree.simp:81:26: syntax error before SYMBOL
+>>>>> tree.simp:83:5: syntax error: expected SYMBOL or '.' before '}'
+>>>>> tree.simp:85:22: syntax error before '.'
+>>>>> tree.simp:85:32: syntax error before SYMBOL
+>>>>> tree.simp:87:5: syntax error: expected SYMBOL or '.' before '}'
+>>>>> tree.simp:91:7: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before '{'
+>>>>> tree.simp:97:5: syntax error before WHILE
+>>>>> tree.simp:97:27: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> tree.simp:103:12: syntax error: expected SYMBOL before PRINT
+>>>>> tree.simp:103:27: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> tree.simp:105:11: syntax error before '.'
+>>>>> tree.simp:105:27: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> tree.simp:107:11: syntax error before '.'
+>>>>> tree.simp:107:27: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> tree.simp:109:11: syntax error before '.'
+>>>>> tree.simp:109:27: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'

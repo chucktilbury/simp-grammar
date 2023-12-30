@@ -1,0 +1,18 @@
+>>>>> structs6.simp:2:1: syntax error before '/'
+>>>>> structs6.simp:3:47: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before RETURN
+>>>>> structs6.simp:8:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:9:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:10:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:11:12: syntax error: expected SYMBOL before DICT
+>>>>> structs6.simp:12:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:13:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:14:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:15:12: syntax error: expected SYMBOL before DICT
+>>>>> structs6.simp:16:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:17:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:18:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:19:12: syntax error: expected SYMBOL before DICT
+>>>>> structs6.simp:20:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:21:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:22:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs6.simp:23:12: syntax error: expected SYMBOL before DICT

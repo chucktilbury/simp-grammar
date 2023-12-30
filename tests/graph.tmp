@@ -1,0 +1,16 @@
+>>>>> graph.simp:39:1: syntax error: expected '(' before NOTHING
+>>>>> graph.simp:48:10: syntax error before '-'
+>>>>> graph.simp:87:18: syntax error before '['
+>>>>> graph.simp:87:42: syntax error before '.'
+>>>>> graph.simp:111:18: syntax error before '+'
+>>>>> graph.simp:114:39: syntax error before '.'
+>>>>> graph.simp:114:61: syntax error before ')'
+>>>>> graph.simp:115:38: syntax error before ')'
+>>>>> graph.simp:117:50: syntax error before '.'
+>>>>> graph.simp:122:5: syntax error before RETURN
+>>>>> graph.simp:137:12: syntax error before '('
+>>>>> graph.simp:139:12: syntax error before '('
+>>>>> graph.simp:141:12: syntax error before '('
+>>>>> graph.simp:143:16: syntax error before '('
+>>>>> graph.simp:147:5: syntax error before '}'
+>>>>> graph.simp:150:5: syntax error before '}'

@@ -1,0 +1,6 @@
+>>>>> recursion.simp:2:1: syntax error before '/'
+>>>>> recursion.simp:12:9: syntax error before '}'
+>>>>> recursion.simp:15:9: syntax error before '}'
+>>>>> recursion.simp:20:7: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before '{'
+>>>>> recursion.simp:23:20: syntax error before LITERAL_NUM
+>>>>> recursion.simp:26:1: syntax error: expected SYMBOL or '.' before '}'

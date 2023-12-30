@@ -1,0 +1,18 @@
+>>>>> structs5.simp:2:1: syntax error before '/'
+>>>>> structs5.simp:3:48: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before RETURN
+>>>>> structs5.simp:9:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:10:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:11:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:12:12: syntax error: expected SYMBOL before LIST
+>>>>> structs5.simp:13:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:14:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:15:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:16:12: syntax error: expected SYMBOL before LIST
+>>>>> structs5.simp:17:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:18:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:19:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:20:12: syntax error: expected SYMBOL before LIST
+>>>>> structs5.simp:21:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:22:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:23:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs5.simp:24:12: syntax error: expected SYMBOL before LIST

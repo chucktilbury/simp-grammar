@@ -1,0 +1,24 @@
+>>>>> structs1.simp:1:1: syntax error before '/'
+>>>>> structs1.simp:2:50: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LITERAL_BOOL
+>>>>> structs1.simp:4:43: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before AND
+>>>>> structs1.simp:7:1: syntax error before '/'
+>>>>> structs1.simp:8:1: syntax error: expected SYMBOL before '/'
+>>>>> structs1.simp:15:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs1.simp:16:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs1.simp:17:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs1.simp:18:12: syntax error: expected SYMBOL before LIST
+>>>>> structs1.simp:19:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs1.simp:20:10: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs1.simp:21:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs1.simp:22:12: syntax error: expected SYMBOL before DICT
+>>>>> structs1.simp:26:1: syntax error before '/'
+>>>>> structs1.simp:26:24: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before STRUCT
+>>>>> structs1.simp:27:47: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before STRUCT
+>>>>> structs1.simp:28:31: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before IN
+>>>>> structs1.simp:29:1: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before '/'
+>>>>> structs1.simp:35:14: syntax error before SYMBOL
+>>>>> structs1.simp:37:49: syntax error before FOR
+>>>>> structs1.simp:40:12: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs1.simp:43:12: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs1.simp:44:12: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before DICT
+>>>>> structs1.simp:44:42: syntax error: expected SYMBOL before LIST

@@ -1,0 +1,13 @@
+>>>>> struct.simp:10:1: syntax error before '/'
+>>>>> struct.simp:12:1: syntax error before '/'
+>>>>> struct.simp:14:27: syntax error before SYMBOL
+>>>>> struct.simp:19:4: syntax error before WHILE
+>>>>> struct.simp:19:19: syntax error: expected SYMBOL or '.' before '+'
+>>>>> struct.simp:21:23: syntax error: expected SYMBOL or '.' before '>'
+>>>>> struct.simp:26:36: syntax error before '='
+>>>>> struct.simp:27:29: syntax error: expected SYMBOL or '.' before '('
+>>>>> struct.simp:34:1: syntax error before IMPORT
+>>>>> struct.simp:34:57: syntax error: expected SYMBOL or '.' before ')'
+>>>>> struct.simp:39:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> struct.simp:39:31: syntax error: expected SYMBOL or '.' before '{'
+>>>>> syntax error before end of file

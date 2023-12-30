@@ -1,0 +1,6 @@
+>>>>> rsa_algo.simp:13:5: syntax error before NUMBER
+>>>>> rsa_algo.simp:19:9: syntax error before EXIT
+>>>>> rsa_algo.simp:28:9: syntax error before EXIT
+>>>>> rsa_algo.simp:33:5: syntax error before STRING
+>>>>> rsa_algo.simp:55:12: syntax error before '('
+Warning: unrecognized character: ! (0x21)

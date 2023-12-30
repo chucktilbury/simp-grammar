@@ -1,0 +1,28 @@
+>>>>> main.simp:1:1: syntax error before '/'
+>>>>> main.simp:3:2: syntax error: expected SYMBOL before '*'
+>>>>> main.simp:5:1: syntax error before '/'
+>>>>> main.simp:8:2: syntax error before '*'
+>>>>> main.simp:8:39: syntax error: expected SYMBOL before IF
+>>>>> main.simp:8:74: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before ','
+>>>>> main.simp:9:28: syntax error before '.'
+>>>>> main.simp:16:1: syntax error: expected SYMBOL before '/'
+>>>>> main.simp:16:27: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before TO
+>>>>> main.simp:17:27: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before IN
+>>>>> main.simp:21:14: syntax error before SYMBOL
+>>>>> main.simp:26:27: syntax error: expected SYMBOL before LIST
+>>>>> main.simp:31:9: syntax error: expected SYMBOL or '.' before RETURN
+>>>>> main.simp:33:16: syntax error: expected SYMBOL or '.' before ')'
+>>>>> main.simp:34:5: syntax error: expected SYMBOL or '.' before '}'
+>>>>> main.simp:37:7: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before '='
+>>>>> main.simp:37:23: syntax error: expected SYMBOL or '.' before '('
+>>>>> main.simp:39:5: syntax error before IF
+>>>>> main.simp:41:9: syntax error: expected SYMBOL or '.' before RETURN
+>>>>> main.simp:51:5: syntax error before DO
+>>>>> main.simp:53:16: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> main.simp:58:23: syntax error: expected SYMBOL or '(' or '[' or '.' before LIST
+>>>>> main.simp:58:47: syntax error before ','
+>>>>> main.simp:62:13: syntax error before '.'
+>>>>> main.simp:62:22: syntax error: expected SYMBOL or '.' before '{'
+>>>>> main.simp:64:19: syntax error before SYMBOL
+>>>>> main.simp:65:13: syntax error: expected SYMBOL or '(' or '[' or '.' before '{'
+>>>>> main.simp:68:1: syntax error before IMPORT

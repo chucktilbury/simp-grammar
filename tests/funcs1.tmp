@@ -1,0 +1,19 @@
+>>>>> funcs1.simp:10:9: syntax error: expected SYMBOL before LIST
+>>>>> funcs1.simp:20:18: syntax error before '.'
+>>>>> funcs1.simp:20:29: syntax error: expected '@' before SYMBOL
+>>>>> funcs1.simp:23:5: syntax error before RETURN
+>>>>> funcs1.simp:27:1: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before NUMBER
+>>>>> funcs1.simp:27:24: syntax error: expected SYMBOL or '.' before '{'
+>>>>> funcs1.simp:29:31: syntax error before IN
+>>>>> funcs1.simp:29:58: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before TO
+>>>>> funcs1.simp:31:5: syntax error before RETURN
+>>>>> funcs1.simp:32:1: syntax error: expected SYMBOL or '.' before '}'
+>>>>> funcs1.simp:34:36: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LITERAL_STRG
+>>>>> funcs1.simp:34:77: syntax error before '.'
+>>>>> funcs1.simp:35:21: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before AND
+>>>>> funcs1.simp:35:44: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before AS
+>>>>> funcs1.simp:37:20: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before IN
+>>>>> funcs1.simp:37:41: syntax error: expected PUBLIC or PRIVATE or PROTECTED or SYMBOL before '.'
+>>>>> funcs1.simp:41:12: syntax error: expected SYMBOL before LIST
+>>>>> funcs1.simp:43:6: syntax error before '/'
+>>>>> funcs1.simp:45:5: syntax error before EXIT

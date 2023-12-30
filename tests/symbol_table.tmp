@@ -1,0 +1,27 @@
+>>>>> symbol_table.simp:2:1: syntax error before '/'
+>>>>> symbol_table.simp:4:2: syntax error: expected SYMBOL before '*'
+>>>>> symbol_table.simp:12:9: syntax error before '/'
+>>>>> symbol_table.simp:13:9: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before '/'
+>>>>> symbol_table.simp:22:5: syntax error: expected '@' before '/'
+>>>>> symbol_table.simp:24:26: syntax error: expected '@' before ')'
+>>>>> symbol_table.simp:28:31: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> symbol_table.simp:30:13: syntax error: expected SYMBOL or '.' before '}'
+>>>>> symbol_table.simp:31:33: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> symbol_table.simp:33:13: syntax error: expected SYMBOL or '.' before '}'
+>>>>> symbol_table.simp:38:34: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before IF
+>>>>> symbol_table.simp:38:54: syntax error before RETURN
+>>>>> symbol_table.simp:42:26: syntax error: expected '@' before ')'
+>>>>> symbol_table.simp:44:9: syntax error before '}'
+>>>>> symbol_table.simp:46:31: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> symbol_table.simp:47:29: syntax error: expected SYMBOL or '(' or '[' or '.' before EQU
+>>>>> symbol_table.simp:48:30: syntax error: expected SYMBOL or '(' or '[' or '.' before '='
+>>>>> symbol_table.simp:49:21: syntax error: expected SYMBOL or '.' before RETURN
+>>>>> symbol_table.simp:53:17: syntax error: expected SYMBOL or '.' before '}'
+>>>>> symbol_table.simp:55:33: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> symbol_table.simp:56:30: syntax error: expected SYMBOL or '(' or '[' or '.' before EQU
+>>>>> symbol_table.simp:57:31: syntax error: expected SYMBOL or '(' or '[' or '.' before '='
+>>>>> symbol_table.simp:58:21: syntax error: expected SYMBOL or '.' before RETURN
+>>>>> symbol_table.simp:62:17: syntax error: expected SYMBOL or '.' before '}'
+>>>>> symbol_table.simp:66:13: syntax error: expected SYMBOL before '}'
+>>>>> symbol_table.simp:74:27: syntax error before '('
+>>>>> symbol_table.simp:79:5: syntax error before '}'

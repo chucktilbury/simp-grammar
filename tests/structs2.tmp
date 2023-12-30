@@ -1,0 +1,4 @@
+>>>>> structs2.simp:1:1: syntax error before '/'
+>>>>> structs2.simp:3:2: syntax error before '*'
+>>>>> structs2.simp:9:11: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST
+>>>>> structs2.simp:10:12: syntax error: expected SYMBOL before DICT

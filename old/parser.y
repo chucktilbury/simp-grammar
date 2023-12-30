@@ -40,7 +40,6 @@ extern const char* file_name;
 %define parse.lac full
 %locations
 
-%right '='
 %left '@' UNARY
 %left OR
 %left AND
@@ -116,7 +115,7 @@ var_declaration_list
     | var_declaration_list ',' var_declaration {}
     ;
 
-var_definition 
+var_definition
     : var_declaration {}
     | var_declaration '=' expression {}
     | var_declaration '=' list_init {}
@@ -133,7 +132,7 @@ list_init_list
     | list_init_list ',' list_init_element {}
     ;
 
-list_init 
+list_init
     : '[' list_init_list ']' {}
     ;
 
@@ -207,7 +206,6 @@ expression
     | expression AND expression {}
     | expression '<' expression {}
     | expression '>' expression {}
-    /* | expression '=' expression {} */
     | expression '^' expression {}
     | '-' expression %prec UNARY {}
     | '!' expression %prec UNARY {}
@@ -237,7 +235,7 @@ namespace_definition
     | namespace_name '{' '}' {}
     ;
 
-class_name 
+class_name
     : CLASS scope_operator SYMBOL {}
     | CLASS SYMBOL {}
     ;
@@ -298,14 +296,19 @@ func_body
     | '{' func_body_element_list '}' {}
     ;
 
-func_body_element
-    : var_definition {}
-    | compound_reference '=' expression {}
+assignment
+    : compound_reference '=' expression {}
     | compound_reference ADD expression {}
     | compound_reference SUB expression {}
     | compound_reference MUL expression {}
     | compound_reference DIV expression {}
     | compound_reference MOD expression {}
+    ;
+
+func_body_element
+    : var_definition {}
+    | compound_reference {}
+    | assignment {}
     | while_clause {}
     | do_clause {}
     | for_clause {}

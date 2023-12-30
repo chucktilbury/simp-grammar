@@ -1,0 +1,5 @@
+>>>>> func_body_if.simp:7:9: syntax error before ')'
+>>>>> func_body_if.simp:9:5: syntax error before IF
+>>>>> func_body_if.simp:11:32: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> func_body_if.simp:15:5: syntax error before ELSE
+>>>>> func_body_if.simp:32:5: syntax error before '{'

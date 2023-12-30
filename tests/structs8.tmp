@@ -1,0 +1,4 @@
+>>>>> structs8.simp:2:1: syntax error before '/'
+>>>>> structs8.simp:3:23: syntax error before AND
+>>>>> structs8.simp:4:2: syntax error: expected SYMBOL before '*'
+>>>>> structs8.simp:14:16: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before LIST

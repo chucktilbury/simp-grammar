@@ -1,0 +1,8 @@
+>>>>> funcs10.simp:2:1: syntax error before '/'
+>>>>> funcs10.simp:3:28: syntax error before SWITCH
+>>>>> funcs10.simp:4:2: syntax error: expected SYMBOL before '*'
+>>>>> funcs10.simp:15:17: syntax error: expected CASE before '{'
+>>>>> funcs10.simp:18:9: syntax error before '}'
+>>>>> funcs10.simp:21:9: syntax error: expected SYMBOL or '.' before '}'
+>>>>> funcs10.simp:24:9: syntax error: expected SYMBOL or '.' before '}'
+>>>>> funcs10.simp:27:9: syntax error: expected SYMBOL or '.' before '}'

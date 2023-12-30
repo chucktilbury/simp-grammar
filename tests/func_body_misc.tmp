@@ -1,0 +1,5 @@
+>>>>> func_body_misc.simp:15:10: syntax error before '('
+>>>>> func_body_misc.simp:23:11: syntax error before ')'
+>>>>> func_body_misc.simp:29:17: syntax error: expected ',' before '.'
+>>>>> func_body_misc.simp:29:31: syntax error before ')'
+>>>>> func_body_misc.simp:31:10: syntax error: expected SYMBOL before LITERAL_NUM

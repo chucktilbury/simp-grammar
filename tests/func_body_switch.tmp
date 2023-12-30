@@ -1,0 +1,5 @@
+>>>>> func_body_switch.simp:9:18: syntax error: expected CASE before '{'
+>>>>> func_body_switch.simp:11:25: syntax error: expected CASE before '{'
+>>>>> func_body_switch.simp:17:21: syntax error: expected SYMBOL or '.' before '}'
+>>>>> func_body_switch.simp:22:33: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> func_body_switch.simp:24:13: syntax error: expected SYMBOL or '.' before '}'

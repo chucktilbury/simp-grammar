@@ -1,0 +1,15 @@
+>>>>> funcs5.simp:2:1: syntax error before '/'
+>>>>> funcs5.simp:3:46: syntax error before IN
+>>>>> funcs5.simp:14:9: syntax error before DICT
+>>>>> funcs5.simp:15:10: syntax error before DICT
+>>>>> funcs5.simp:16:10: syntax error: expected SYMBOL before DICT
+>>>>> funcs5.simp:17:11: syntax error before DICT
+>>>>> funcs5.simp:18:12: syntax error: expected SYMBOL before DICT
+>>>>> funcs5.simp:19:15: syntax error before DICT
+>>>>> funcs5.simp:21:9: syntax error before DICT
+>>>>> funcs5.simp:21:27: syntax error before '='
+>>>>> funcs5.simp:22:28: syntax error before '='
+>>>>> funcs5.simp:23:28: syntax error before '='
+>>>>> funcs5.simp:24:29: syntax error before '='
+>>>>> funcs5.simp:25:30: syntax error before '='
+>>>>> funcs5.simp:26:33: syntax error before '='

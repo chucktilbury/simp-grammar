@@ -1,0 +1,9 @@
+>>>>> gcd.simp:2:1: syntax error before '/'
+>>>>> gcd.simp:3:49: syntax error before LITERAL_NUM
+>>>>> gcd.simp:8:12: syntax error: expected SYMBOL before PRINT
+>>>>> gcd.simp:21:1: syntax error before '}'
+>>>>> gcd.simp:24:7: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before '{'
+>>>>> gcd.simp:26:12: syntax error: expected SYMBOL before PRINT
+>>>>> gcd.simp:26:32: syntax error: expected SYMBOL or '.' before ')'
+>>>>> gcd.simp:27:33: syntax error: expected SYMBOL or '.' before ')'
+>>>>> gcd.simp:28:32: syntax error: expected SYMBOL or '.' before ')'

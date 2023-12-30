@@ -1,0 +1,5 @@
+>>>>> structs7.simp:2:1: syntax error before '/'
+>>>>> structs7.simp:3:72: syntax error before LITERAL_BOOL
+>>>>> structs7.simp:4:28: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before ','
+>>>>> structs7.simp:4:65: syntax error before '.'
+>>>>> structs7.simp:10:21: syntax error: expected SYMBOL or '(' or '[' or '.' before LIST

@@ -1,0 +1,15 @@
+>>>>> funcs2.simp:2:1: syntax error before '/'
+>>>>> funcs2.simp:3:64: syntax error before IN
+>>>>> funcs2.simp:20:5: syntax error before '/'
+>>>>> funcs2.simp:22:9: syntax error before LIST
+>>>>> funcs2.simp:23:10: syntax error before LIST
+>>>>> funcs2.simp:24:10: syntax error: expected SYMBOL before LIST
+>>>>> funcs2.simp:25:11: syntax error before LIST
+>>>>> funcs2.simp:26:12: syntax error: expected SYMBOL before LIST
+>>>>> funcs2.simp:27:15: syntax error before LIST
+>>>>> funcs2.simp:29:9: syntax error before DICT
+>>>>> funcs2.simp:30:10: syntax error before DICT
+>>>>> funcs2.simp:31:10: syntax error: expected SYMBOL before DICT
+>>>>> funcs2.simp:32:11: syntax error before DICT
+>>>>> funcs2.simp:33:12: syntax error: expected SYMBOL before DICT
+>>>>> funcs2.simp:34:15: syntax error before DICT

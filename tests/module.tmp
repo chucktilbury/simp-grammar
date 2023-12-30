@@ -1,0 +1,4 @@
+>>>>> module.simp:43:33: syntax error: expected SYMBOL before ','
+>>>>> module.simp:43:56: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> module.simp:52:9: syntax error before '}'
+>>>>> module.simp:55:9: syntax error before '}'

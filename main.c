@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "parser.h"
-#include "scanner.h"
+#include "simple.h"
 
+FILE* fptr = NULL;
 
 int main(int argc, char** argv) {
 
@@ -11,7 +11,12 @@ int main(int argc, char** argv) {
         return 1;
     }
 
-    yydebug = 0;
-    open_file(argv[1]);
-    return yyparse();
+    fptr = fopen(argv[1], "r");
+
+    pcc_context_t *parser = NULL;
+    parser = pcc_create(NULL);
+    while(pcc_parse(parser, NULL)) { printf("run\n"); }
+    pcc_destroy(parser);
+
+    return 0;
 }

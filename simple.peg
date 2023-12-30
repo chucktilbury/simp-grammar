@@ -1,0 +1,265 @@
+# This is a PEG grammar for the Simple programming language.
+%source {
+    #include <stdio.h>
+    #include <stdlib.h>
+
+extern FILE* fptr;
+
+#define PCC_GETCHAR(auxil) fgetc(fptr)
+#define PCC_BUFFERSIZE 1024
+
+}
+
+MODULE <- (_ MODULE_ELEM _)+ EOF
+
+MODULE_ELEM <- NAMESPACE_DEF { printf("namespace def: %s\n", $0); }
+    / NAMESPACE_ELEM { printf("namespace element: %s\n", $0); }
+    / IMPORT_DEF { printf("import def: %s\n", $0); }
+
+IMPORT_DEF <- IMPORT WS+ <FORMATTED_STR> WS+ AS WS+ <SYMBOL> {}
+    / IMPORT WS+ <FORMATTED_STR> {}
+
+NAMESPACE_ELEM <- COMMENT / NAMESPACE_DEF / EXPR / ASSIGNMENT / SCOPE_OPERATOR / CLASS_DEFINITION
+
+NAMESPACE_DEF <- NAMESPACE WS+ <SYMBOL> _ '{' (_ NAMESPACE_ELEM)* _ '}' {}
+
+# VAR_LIST_DECL <- VAR_DECLARATION {}
+
+VAR_DECLARATION <- TYPE_SPEC WS+ <SYMBOL> { printf("var decl: %s\n", $0); }
+VAR_DEFINITION <- VAR_DECLARATION (_ '=' _ EXPR)? { printf("var def: %s\n", $0); }
+
+FUNC_PARAM_LIST <- VAR_DECLARATION (_ ',' _ VAR_DECLARATION)*
+FUNC_PARAM_DECL <- '(' _ FUNC_PARAM_LIST* _ ')' { printf("func decl params: %s\n", $0); }
+FUNC_DECLARATION <- VAR_DECLARATION _ FUNC_PARAM_DECL { printf("func decl: %s\n", $0); }
+
+CLASS_DEFINITION
+    <- CLASS WS+ <SYMBOL> _ ('(' _ COMPOUND_NAME? _ ')')? _ '{' ( _ CLASS_BODY_ITEM )* _ '}' { printf("class def: %s\n", $0); }
+
+CLASS_BODY_ITEM <- SCOPE_OPERATOR {}
+    / FUNC_DECLARATION {}
+    / VAR_DEFINITION {}
+    / VAR_DECLARATION {}
+    / COMMENT {}
+
+# Root expression expression
+EXPR <- EXPR_OR {}
+
+EXPR_OR <- EXPR_OR _ OR _ EXPR_AND { printf("or: %s\n", $0); }
+    / EXPR_OR _ '||' _ EXPR_AND { printf("or: %s\n", $0); }
+    / EXPR_AND
+
+EXPR_AND <- EXPR_AND _ AND _ EXPR_EQU { printf("and: %s\n", $0); }
+    / EXPR_AND _ '&&' _ EXPR_EQU { printf("and: %s\n", $0); }
+    / EXPR_EQU
+
+EXPR_EQU <- EXPR_EQU _ '==' EXPR_MAG { printf("equ ==: %s\n", $0); }
+    / EXPR_EQU _ '!=' _ EXPR_MAG { printf("equ !=: %s\n", $0); }
+    / EXPR_MAG
+
+EXPR_MAG <- EXPR_MAG _ '<' _ EXPR_TERM { printf("mag <: %s\n", $0); }
+    / EXPR_MAG _ '>' _ EXPR_TERM { printf("mag >: %s\n", $0); }
+    / EXPR_MAG _ '<=' _ EXPR_TERM { printf("mag <=: %s\n", $0); }
+    / EXPR_MAG _ '>=' _ EXPR_TERM { printf("mag >=: %s\n", $0); }
+    / EXPR_TERM
+
+EXPR_TERM <- EXPR_TERM _ '+' _ EXPR_FACT { printf("term +: %s\n", $0); }
+    / EXPR_TERM _ '-' _ EXPR_FACT { printf("term -: %s\n", $0); }
+    / EXPR_FACT
+
+EXPR_FACT <- EXPR_FACT _ '*' _ EXPR_POW { printf("fact *: %s\n", $0); }
+    / EXPR_FACT _ '/' _ EXPR_POW { printf("fact /: %s\n", $0); }
+    / EXPR_FACT _ '%' _ EXPR_POW { printf("fact %: %s\n", $0); }
+    / EXPR_POW
+
+EXPR_POW <- EXPR_POW _ '^' _ EXPR_UNARY { printf("pow ^: %s\n", $0); }
+    / EXPR_UNARY
+
+EXPR_UNARY <- '-' _ EXPR_PRIMARY { printf("unary -: %s\n", $0); }
+    / '!' _ EXPR_PRIMARY { printf("unary !: %s\n", $0); }
+    / EXPR_PRIMARY
+
+# Primary expression elements.
+EXPR_PRIMARY <- '(' _ EXPR _ ')' { printf("primary expr: %s\n", $0); }
+    / COMPOUND_REF { printf("primary ref: %s\n", $0); }
+    / LITERAL_NUMBER { printf("primary num: %s\n", $0); }
+    / FORMATTED_STR { printf("primary str: %s\n", $0); }
+
+
+FORMATTED_STR <- LITERAL_STR _ '(' _ EXPR_LIST _ ')' { printf("formatted str: %s\n", $0); }
+    / LITERAL_STR '(' _ ')' { printf("formatted str: %s\n", $0); }
+    / LITERAL_STR { printf("formatted str: %s\n", $0); }
+
+# Expression lists are used lots of places.
+EXPR_LIST <- EXPR (_ ',' _ EXPR) { printf("expression list: %s\n", $0); }
+
+# Assignments.
+# These are separate from expressions because they cannot be in a test.
+ASSIGNMENT <- COMPOUND_NAME _ '=' _ EXPR { printf("ASSIGNMENT: %s\n", $0); }
+    / COMPOUND_NAME _ '+=' _ EXPR { printf("add ASSIGNMENT: %s\n", $0); }
+    / COMPOUND_NAME _ '-=' _ EXPR { printf("sub ASSIGNMENT: %s\n", $0); }
+    / COMPOUND_NAME _ '*=' _ EXPR { printf("mul ASSIGNMENT: %s\n", $0); }
+    / COMPOUND_NAME _ '/=' _ EXPR { printf("div ASSIGNMENT: %s\n", $0); }
+    / COMPOUND_NAME _ '%=' _ EXPR { printf("mod ASSIGNMENT: %s\n", $0); }
+
+# A compound name specifies a type name, rather than a reference to data.
+COMPOUND_NAME <- <SYMBOL> ('.' <SYMBOL>)* { printf("compound name: %s\n", $0); }
+
+# Specify a reference to data.
+# No spaces in a compound reference
+# A compound reference can be a single SYMBOL, array or function reference.
+COMPOUND_REF <- COMPOUND_REF_ELEM ('.' COMPOUND_REF_ELEM)* { printf("compound_ref: %s\n", $0); }
+COMPOUND_REF_ELEM <- <ARR_REF> { printf("CR_ELEM:arr ref: %s\n", $0); }
+    / <FUNC_REF> { printf("CR_ELEM:func ref: %s\n", $0); }
+    / <COMPOUND_NAME> { printf("CR_ELEM:compound name:%s\n", $0); }
+
+# A function reference is a symbol with an expression list.
+# The parens could be empty.
+FUNC_REF <- <SYMBOL> _ '(' _ ')' { printf("FUNC_REF:%s\n", $0); }
+    / <SYMBOL> _ '(' _ EXPR_LIST _ ')' { printf("FUNC_REF:%s\n", $0); }
+
+# An array reference can have nested braces such as arr[arr[1]][2].
+# It must have at lease one thing in the braces.
+# If the parameter is a string, then it must refer to a dictionary instead
+# of an array.
+ARR_REF <- <SYMBOL> _ ARR_BRACES (_ ARR_BRACES)* { printf("ARR_REF:%s\n", $0); }
+ARR_BRACES <- '[' _ ARR_REF_ELEM _ ']'
+ARR_REF_ELEM <- COMPOUND_REF {}
+    / FUNC_REF {}
+    / LITERAL_NUMBER {}
+
+# Comments are always ignored
+COMMENT <- ';'[^\n]*
+
+# All numbers are floating point
+LITERAL_NUMBER <- <([0-9]*'.')?[0-9]+([Ee][-+]?[0-9]+)?> { printf("number: %s\n", $0); }
+
+# Literal strings
+LITERAL_STR <- '"' [^"\n]* '"' { printf("literal string 1: %s\n", $0); }
+    / "'" [^'\n]* "'" { printf("literal string 2: %s\n", $0); }
+
+# Symbols
+SYMBOL <- !KEYWORD <[a-zA-Z_][a-zA-Z0-9_]*> { printf("symbol: %s\n", $0); }
+
+SCOPE_OPERATOR <- PUBLIC { printf("scope: %s\n", $0); }
+    / PRIVATE { printf("scope: %s\n", $0); }
+    / PROTECTED { printf("scope: %s\n", $0); }
+
+TYPE_NAME <- BOOLEAN { printf("type name: %s\n", $0); }
+    / NUM { printf("type name: %s\n", $0); }
+    / STRING { printf("type name: %s\n", $0); }
+    / DICT { printf("type name: %s\n", $0); }
+    / LIST { printf("type name: %s\n", $0); }
+    / NOTHING { printf("type name: %s\n", $0); }
+    / COMPOUND_NAME { printf("type name: %s\n", $0); }
+
+TYPE_SPEC <- TYPE_NAME { printf("type spec: %s\n", $0); }
+    / CONST WS+ TYPE_NAME { printf("type spec: %s\n", $0); }
+
+# Keyword definitions. Keywords are not case-sensitive.
+KEYWORD <- NAMESPACE
+    / IMPORT
+    / AS
+    / OR
+    / AND
+    / CLASS
+    / STRUCT
+    / PUBLIC
+    / PRIVATE
+    / PROTECTED
+    / BREAK
+    / CASE
+    / CONTINUE
+    / CONST
+    / DEFAULT
+    / IMPORT
+    / DO
+    / ELSE
+    / FOR
+    / IF
+    / RETURN
+    / SWITCH
+    / WHILE
+    / IN
+    / TO
+    / AS
+    / YIELD
+    / EXIT
+    / TRY
+    / EXCEPT
+    / RAISE
+    / CTOR
+    / DTOR
+    / START
+    / LIST
+    / DICT
+    / TRACE
+    / PRINT
+    / TYPE
+    / NUM
+    / NOTHING
+    / STRING
+    / BOOLEAN
+    / TRUE
+    / FALSE
+
+# Keywords are not case-sensitive.
+NAMESPACE <- [nN][aA][mM][eE][sS][pP][aA][cC][eE] !(LIMIT)
+IMPORT <- [iI][mM][pP][oO][rR][tT] !(LIMIT)
+AS <- [aA][sS] !(LIMIT)
+OR <- [oO][rR] !(LIMIT)
+AND <- [aA][nN][dD] !(LIMIT)
+CLASS <- [cC][lL][aA][sS][sS] !(LIMIT)
+STRUCT <- [sS][tT][rR][uU][cC][tT] !(LIMIT)
+PUBLIC <- [pP][uU][bB][lL][iI][cC] !(LIMIT)
+PRIVATE <- [pP][rR][iI][vV][aA][tT][eE] !(LIMIT)
+PROTECTED <- [pP][rR][oO][tT][eE][cC][tT][eE][dD] !(LIMIT)
+BREAK <- [bB][rR][eE][aA][kK] !(LIMIT)
+CASE <- [cC][aA][sS][eE] !(LIMIT)
+CONTINUE <- [cC][oO][nN][tT][iI][nN][uU][eE] !(LIMIT)
+CONST <- [cC][oO][nN][sS][tT] !(LIMIT)
+DEFAULT <- [dD][eE][fF][aA][uU][lL][tT] !(LIMIT)
+DO <- [dD][oO] !(LIMIT)
+ELSE <- [eE][lL][sS][eE] !(LIMIT)
+FOR <- [fF][oO][rR] !(LIMIT)
+IF <- [iI][fF] !(LIMIT)
+RETURN <- [rR][eE[tT][uU][rR][nN] !(LIMIT)
+SWITCH <- [sS][wW][iI][tT][cC][hH] !(LIMIT)
+WHILE <- [wW][hH][iI][lL][eE] !(LIMIT)
+IN <- [iI][nN] !(LIMIT)
+TO <- [tT][oO] !(LIMIT)
+YIELD <- [yY][iI][eE][lL][dD] !(LIMIT)
+EXIT <- [eE][xX][iI][tT] !(LIMIT)
+TRY <- [tT][rR][yY] !(LIMIT)
+EXCEPT <- [eE][xX][cC][eE][pP][tT] !(LIMIT)
+RAISE <- [rR][aA][iI][sS][eE] !(LIMIT)
+CTOR <- [cC][rR][eE][aA][tT][eE] !(LIMIT)
+DTOR <- [dD][eE][sS][tT][rR][oO][yY] !(LIMIT)
+START <- [sS][tT][aA][rR][tT] !(LIMIT)
+LIST <- [lL][iI][sS][tT] !(LIMIT)
+DICT <- [dD][iI][cC][tT] !(LIMIT)
+TRACE <- [tT][rR][aA][cC][eE] !(LIMIT)
+PRINT <- [pP][rR][iI][nN][tT] !(LIMIT)
+TYPE <- [tT][yY][pP][eE] !(LIMIT)
+NUM <- [nN][uU][mM] !(LIMIT)
+    / [nN][uU][mM][bB][eE][rR] !(LIMIT)
+NOTHING <- [nN][oO][tT][hH][iI][nN][gG] !(LIMIT)
+    / [nN][oO][tT][hH] !(LIMIT)
+STRING <- [sS][tT][rR][iI][nN][gG] !(LIMIT)
+    / [sS][tT][rR][gG] !(LIMIT)
+BOOLEAN <- [bB][oO][oO][lL] !(LIMIT)
+    / [bB][oO][oO][lL][eE][aA][nN] !(LIMIT)
+TRUE <- [tT][rR][uU][eE] !(LIMIT)
+    / [oO][nN] !(LIMIT)
+FALSE <- [fF][aA][lL][sS][eE] !(LIMIT)
+    / [oO][fF][fF] !(LIMIT)
+
+# Zero or more white space characters
+_ <- WS*
+
+# primitives
+LIMIT <- [a-zA-Z0-9_]
+WS <- [ \t\r\n]
+
+# End of file
+EOF <- !.
+

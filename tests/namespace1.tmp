@@ -1,0 +1,7 @@
+>>>>> namespace1.simp:2:1: syntax error before '/'
+>>>>> namespace1.simp:3:33: syntax error: expected '{' before SYMBOL
+>>>>> namespace1.simp:13:18: syntax error before '.'
+>>>>> namespace1.simp:13:26: syntax error: expected SYMBOL or '.' before '{'
+>>>>> namespace1.simp:22:22: syntax error before '.'
+>>>>> namespace1.simp:22:30: syntax error: expected SYMBOL or '.' before '{'
+>>>>> namespace1.simp:24:9: syntax error: expected SYMBOL or '.' before '}'

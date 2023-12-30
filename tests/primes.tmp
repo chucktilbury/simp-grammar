@@ -1,0 +1,7 @@
+>>>>> primes.simp:2:1: syntax error before '/'
+>>>>> primes.simp:3:38: syntax error: expected SYMBOL or '@' or '(' or '[' or '.' before TO
+>>>>> primes.simp:7:1: syntax error: expected SYMBOL before BOOLEAN
+>>>>> primes.simp:21:1: syntax error before '}'
+>>>>> primes.simp:30:5: syntax error before WHILE
+>>>>> primes.simp:32:31: syntax error: expected SYMBOL or '.' before ')'
+>>>>> primes.simp:33:20: syntax error: expected SYMBOL before PRINT

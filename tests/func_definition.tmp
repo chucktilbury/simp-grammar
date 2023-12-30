@@ -1,0 +1,5 @@
+>>>>> func_definition.simp:7:22: syntax error: expected SYMBOL before ','
+>>>>> func_definition.simp:12:12: syntax error before '.'
+>>>>> func_definition.simp:12:26: syntax error: expected '@' before SYMBOL
+>>>>> func_definition.simp:15:10: syntax error: expected SYMBOL before CTOR
+>>>>> func_definition.simp:18:10: syntax error: expected SYMBOL before DTOR

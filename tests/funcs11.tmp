@@ -1,0 +1,6 @@
+>>>>> funcs11.simp:2:1: syntax error before '/'
+>>>>> funcs11.simp:3:28: syntax error before SWITCH
+>>>>> funcs11.simp:16:17: syntax error: expected CASE before '{'
+>>>>> funcs11.simp:19:9: syntax error before '}'
+>>>>> funcs11.simp:22:9: syntax error: expected SYMBOL or '.' before '}'
+>>>>> funcs11.simp:25:9: syntax error: expected SYMBOL or '.' before '}'

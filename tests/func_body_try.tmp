@@ -1,0 +1,5 @@
+>>>>> func_body_try.simp:17:13: syntax error before TRY
+>>>>> func_body_try.simp:24:17: syntax error before '}'
+>>>>> func_body_try.simp:28:20: syntax error: expected ')' before '.'
+>>>>> func_body_try.simp:30:23: syntax error: expected SYMBOL or '(' or '[' or '.' before ')'
+>>>>> func_body_try.simp:35:1: syntax error before '}'

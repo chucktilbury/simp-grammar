@@ -1,0 +1,11 @@
+>>>>> funcs7.simp:2:1: syntax error before '/'
+>>>>> funcs7.simp:3:27: syntax error before FOR
+>>>>> funcs7.simp:4:2: syntax error: expected SYMBOL before '*'
+>>>>> funcs7.simp:8:5: syntax error before '/'
+>>>>> funcs7.simp:8:54: syntax error before AS
+>>>>> funcs7.simp:9:5: syntax error before '/'
+>>>>> funcs7.simp:11:12: syntax error: expected SYMBOL before LIST
+>>>>> funcs7.simp:12:12: syntax error: expected SYMBOL before DICT
+>>>>> funcs7.simp:12:29: syntax error before '='
+>>>>> funcs7.simp:14:6: syntax error before '/'
+>>>>> funcs7.simp:14:31: syntax error before '='
