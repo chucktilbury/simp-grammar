@@ -15,6 +15,12 @@ namespace _something_ {
             public
             string glass()
             number plastic(num one, num two)
+            struct sname {
+                public
+                int jack
+                bool jill
+                string billy(asd asd, num asd, string plart)
+            }
         }
     }
 }

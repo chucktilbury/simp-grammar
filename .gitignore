@@ -1,5 +1,8 @@
 build/
-*.old 
+*.old
+simple.c
+simple.h
+simp
 
 # Prerequisites
 *.d
