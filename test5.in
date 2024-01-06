@@ -16,12 +16,14 @@ namespace _something_ {
             string glass()
             number plastic(num one, num two)
             struct sname {
-                public
+                ; scope operators are not allowed
                 int jack
                 bool jill
-                string billy(asd asd, num asd, string plart)
+                ; function definition/declaration is not allowed
+                ; string billy(asd asd, num asd, string plart)
             }
         }
     }
 }
+
 

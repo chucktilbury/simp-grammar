@@ -21,27 +21,28 @@ MODULE_ELEM
 # An import definition can only appear at the topmost level and outside of a
 # namespace, struct, or class.
 IMPORT_DEF
-    <- IMPORT WS+ <FORMATTED_STR> WS+ AS WS+ <SYMBOL> {}
-    /  IMPORT WS+ <FORMATTED_STR> {}
+    <- IMPORT SP <FORMATTED_STR> SP AS SP <SYMBOL> {}
+    /  IMPORT SP <FORMATTED_STR> {}
 
 # Namespace definitions are availabel at the topmost level and may be nested
 # to any depth. Most syntax that is above the level of a function can appear
 # in a namespace context.
 NAMESPACE_ELEM
     <- COMMENT
+    /  CLASS_DEFINITION
     /  NAMESPACE_DEF
     /  ASSIGNMENT
     /  EXPR
     /  SCOPE_OPERATOR
-    /  CLASS_DEFINITION
+    /  FUNC_DEFINITION
 NAMESPACE_DEF
-    <- NAMESPACE WS+ <SYMBOL> _ '{' (_ NAMESPACE_ELEM)* _ '}' {}
+    <- NAMESPACE SP <SYMBOL> _ '{' (_ NAMESPACE_ELEM)* _ '}' {}
 
 # Varaiable declaration and definition. Both reserve space in the namespace
 # variable store. A declaration cannot have an initializer and a definition
 # mat have an optional initializer.
 VAR_DECLARATION
-    <- TYPE_SPEC WS+ <SYMBOL> { printf("var decl: %s\n", $0); }
+    <- TYPE_SPEC SP <SYMBOL> { printf("var decl: %s\n", $0); }
 VAR_DEFINITION
     <- VAR_DECLARATION (_ '=' _ EXPR)? { printf("var def: %s\n", $0); }
 
@@ -50,29 +51,128 @@ VAR_DEFINITION
 FUNC_PARAM_LIST
     <- VAR_DECLARATION (_ ',' _ VAR_DECLARATION)*
 FUNC_PARAM_DECL
-    <- '(' _ FUNC_PARAM_LIST* _ ')' { printf("func decl params: %s\n", $0); }
+    <- '(' _ (FUNC_PARAM_LIST)* _ ')' { printf("func decl params: %s\n", $0); }
 FUNC_DECLARATION
     <- VAR_DECLARATION _ FUNC_PARAM_DECL { printf("func decl: %s\n", $0); }
+
+# Function definition. This is the actual code definition.
+FUNC_DEFINITION
+    <- TYPE_SPEC SP COMPOUND_NAME _ FUNC_PARAM_DECL _ FUNC_BODY { printf("func def: %s\n", $0); }
+FUNC_BODY
+    <- _ '{' (_ FUNC_BODY_ELEM _)* _ '}' {}
+FUNC_BODY_ELEM
+    <- COMMENT
+    /  RETURN (_ '(' (_ EXPR)? _')')? { printf("return: %s\n", $0); }
+    /  RAISE _ '(' _ SYMBOL _ ',' _ FORMATTED_STR _ ')'
+    /  PRINT _ '(' _ EXPR_LIST _ ')'
+    /  YIELD _ '(' _ COMPOUND_REF _ ')'
+    /  TYPE _ '(' _ COMPOUND_REF _ ')'
+    /  EXIT _ '(' _ EXPR _ ')'
+    /  BREAK
+    /  CONTINUE
+    /  TRACE
+    /  FUNC_BODY
+    /  ASSIGNMENT
+    /  EXPR
+    /  VAR_DEFINITION
+    /  VAR_DECLARATION
+    /  STRUCT_DEFINITION
+    /  FOR_CLAUSE
+    /  WHILE_CLAUSE
+    /  DO_CLAUSE
+    /  IF_CLAUSE
+    /  SWITCH_CASE
+    /  TRY_CLAUSE
+    # Inline keyword requires manipulation at the lexical level because it
+    # needs to count '{}'. All of the text inside the brackets is copied to
+    # the output without any interpretation or modifications.
+    / INLINE
+
+# The FOR clause is similar to the one in C or Python but more simple.
+# Note that the order in which the expr statements appear is fiddly. They
+# cannot be combined and the order should be left alone unless specifically
+# tested.
+FOR_CLAUSE
+    <- FOR _ FOR_EXPR? _ FUNC_BODY {}
+FOR_EXPR
+    <- '(' _ ')'
+    /  '(' _ EXPR _')'
+    /  '(' _ ASSIGNMENT _ ')'
+    /  '(' _ SYMBOL SP IN SP EXPR _ ')'
+    /  '(' _ SYMBOL SP IN SP ASSIGNMENT _ ')'
+
+# Simple generic test expression used many places.
+TEST_EXPR
+    <- _ '(' (_ EXPR)? _ ')'
+
+# While clause is simple
+WHILE_CLAUSE
+    <- WHILE TEST_EXPR? FUNC_BODY {}
+# Do clause is just like the while clause, but with the expression on the end.
+DO_CLAUSE
+    <- DO FUNC_BODY _ WHILE TEST_EXPR? {}
+
+# If clause always requires braces. An empty expression always indicates the
+# TRUE condition. That means that if there is an empty expression before the
+# last else, that is a dangling else syntax error.
+IF_CLAUSE
+    <- IF _ '(' _ EXPR _')' FUNC_BODY ELSE_CLAUSES* {}
+ELSE_CLAUSE
+    <- ELSE _ '(' _ EXPR _')' FUNC_BODY {}
+    / COMMENT
+ELSE_FINAL
+    <- ELSE FUNC_BODY {}
+    /  ELSE '(' _ ')' FUNC_BODY {}
+    / COMMENT
+ELSE_CLAUSES
+    <- (_ ELSE_CLAUSE* _ ELSE_FINAL?)
+
+# Switch case is the same as in C except that the constant in the case
+# statements can be a string. The braces take the place of the colon. Any
+# construct that is valid in a function definition is valid in a case block.
+SWITCH_CASE
+    <- SWITCH TEST_EXPR CASE_BODY {}
+CASE_CLAUSE
+    <- COMMENT
+    /  CASE _ '(' (_ FORMATTED_STR) _ ')' FUNC_BODY {}
+    /  CASE _ '(' (_ LITERAL_NUMBER) _ ')' FUNC_BODY {}
+DEFAULT_CLAUSE
+    <- DEFAULT FUNC_BODY {}
+CASE_BODY
+    <- (_ '{' (_ CASE_CLAUSE)+  (_ DEFAULT_CLAUSE)? _ '}') {}
+
+# The TRY_CLAUSE uses the except keyword that accepts a single symbol. This
+# symbol references a unique except clause. Internally, exceptions are
+# implemented using the non-local GOTO feature of C. The except locations are
+# kept in an array. So there is no notion of an "exception class". The raise
+# statement allows a symbol and a string. The string is treated as an error
+# message.
+TRY_CLAUSE
+    <- TRY _ FUNC_BODY (EXCEPT_CLAUSE)+ {}
+EXCEPT_CLAUSE
+    <- COMMENT
+    /  _ EXCEPT _ '(' _ SYMBOL _ ')' FUNC_BODY {}
 
 # Struct definition. There is no notion of a struct declaration. A struct
 # definition can appear in a class or function definition. It's actual
 # implementation only defines a namespace instead an actual storage. The
 # difference between a struct and a class is that a struct cannot contain a
-# constructor or destructor, but a struct may contain functions. The scope of
-# variables defined in a struct are local to functions defined in that scope.
+# constructor or destructor, or any functions. The variables defined in a
+# struct are accessed using the name of the struct.
 STRUCT_DEFINITION
-    <- STRUCT WS+ <SYMBOL> _ '{' _ STRUCT_BODY* _ '}' { printf("struct definition: %s\n", $0); }
+    <- STRUCT SP <SYMBOL> _ '{' _ STRUCT_BODY* _ '}' { printf("struct definition: %s\n", $0); }
 STRUCT_BODY_ITEM
-    <- FUNC_DECLARATION
+    <- COMMENT
     /  VAR_DECLARATION
 STRUCT_BODY
-    <- STRUCT_BODY_ITEM (WS+ STRUCT_BODY_ITEM)*
+    <- STRUCT_BODY_ITEM (SP STRUCT_BODY_ITEM)*
 
 # Class definition. There is no notion of a class declaration.
 CLASS_DEFINITION
-    <- CLASS WS+ <SYMBOL> _ ('(' _ COMPOUND_NAME? _ ')')? _ '{' ( _ CLASS_BODY_ITEM )* _ '}' { printf("class def: %s\n", $0); }
+    <- CLASS SP <SYMBOL> _ ('(' _ COMPOUND_NAME? _ ')')? _ '{' ( _ CLASS_BODY_ITEM )* _ '}' { printf("class def: %s\n", $0); }
 CLASS_BODY_ITEM
     <- SCOPE_OPERATOR {}
+    /  FUNC_DEFINITION {}
     /  FUNC_DECLARATION {}
     /  VAR_DEFINITION {}
     /  VAR_DECLARATION {}
@@ -129,19 +229,18 @@ EXPR_UNARY
 EXPR_PRIMARY
     <- '(' _ EXPR _ ')' { printf("primary ( expr ): %s\n", $0); }
     /  TYPE_SPEC _ '(' _ EXPR _ ')' { printf("primary type ( expr ): %s\n", $0); }
-    /  COMPOUND_REF { printf("primary ref: %s\n", $0); }
     /  LITERAL_NUMBER { printf("primary num: %s\n", $0); }
     /  FORMATTED_STR { printf("primary str: %s\n", $0); }
+    /  COMPOUND_REF { printf("primary ref: %s\n", $0); }
 
-
+# All strings that can appear in user code can be (optionally) formatted.
 FORMATTED_STR
-    <- LITERAL_STR _ '(' _ EXPR_LIST _ ')' { printf("formatted str: %s\n", $0); }
-    /  LITERAL_STR '(' _ ')' { printf("formatted str: %s\n", $0); }
+    <- LITERAL_STR _ '(' (_ EXPR_LIST)? _ ')' { printf("formatted str: %s\n", $0); }
     /  LITERAL_STR { printf("formatted str: %s\n", $0); }
 
 # Expression lists are used lots of places.
 EXPR_LIST
-    <- EXPR (_ ',' _ EXPR) { printf("expression list: %s\n", $0); }
+    <- EXPR (_ ',' _ EXPR)* { printf("expression list: %s\n", $0); }
 
 # Assignments.
 # These are separate from expressions because they cannot be in a test.
@@ -163,25 +262,26 @@ COMPOUND_NAME
 COMPOUND_REF
     <- COMPOUND_REF_ELEM ('.' COMPOUND_REF_ELEM)* { printf("compound_ref: %s\n", $0); }
 COMPOUND_REF_ELEM
-    <- <ARR_REF> { printf("CR_ELEM:arr ref: %s\n", $0); }
-    /  <FUNC_REF> { printf("CR_ELEM:func ref: %s\n", $0); }
-    /  <COMPOUND_NAME> { printf("CR_ELEM:compound name:%s\n", $0); }
+    <- <FUNC_REF> { printf("CR_ELEM:func ref: %s\n", $0); }
+    /  <ARRAY_REF> { printf("CR_ELEM:arr ref: %s\n", $0); }
+    #/  <COMPOUND_NAME> { printf("CR_ELEM:compound name:%s\n", $0); }
+    /  <SYMBOL> { printf("CR_ELEM:symbol:%s\n", $0); }
 
 # A function reference is a symbol with an expression list.
 # The parens could be empty.
 FUNC_REF
     <- <SYMBOL> _ '(' _ ')' { printf("FUNC_REF:%s\n", $0); }
-    /  <SYMBOL> _ '(' _ EXPR_LIST _ ')' { printf("FUNC_REF:%s\n", $0); }
+    /  <SYMBOL> _ '(' (_ EXPR_LIST)? _ ')' { printf("FUNC_REF:%s\n", $0); }
 
 # An array reference can have nested braces such as arr[arr[1]][2].
 # It must have at lease one thing in the braces.
 # If the parameter is a string, then it must refer to a dictionary instead
 # of an array.
-ARR_REF
-    <- <SYMBOL> _ ARR_BRACES (_ ARR_BRACES)* { printf("ARR_REF:%s\n", $0); }
-ARR_BRACES
-    <- '[' _ ARR_REF_ELEM _ ']'
-ARR_REF_ELEM
+ARRAY_REF
+    <- <SYMBOL> _ ARRAY_BRACES (_ ARRAY_BRACES)* { printf("ARR_REF:%s\n", $0); }
+ARRAY_BRACES
+    <- '[' _ ARRAY_REF_ELEM _ ']'
+ARRAY_REF_ELEM
     <- COMPOUND_REF {}
     /  FUNC_REF {}
     /  LITERAL_NUMBER {}
@@ -219,7 +319,7 @@ TYPE_NAME
 
 TYPE_SPEC
     <- TYPE_NAME { printf("type spec: %s\n", $0); }
-    /  CONST WS+ TYPE_NAME { printf("type spec: %s\n", $0); }
+    /  CONST SP TYPE_NAME { printf("type spec: %s\n", $0); }
 
 # Keyword definitions. Keywords are not case-sensitive.
 KEYWORD
@@ -268,6 +368,7 @@ KEYWORD
     /  BOOLEAN
     /  TRUE
     /  FALSE
+    /  INLINE
 
 # Keywords are not case-sensitive.
 NAMESPACE   <- [nN][aA][mM][eE][sS][pP][aA][cC][eE] !(LIMIT)
@@ -307,6 +408,8 @@ DICT        <- [dD][iI][cC][tT] !(LIMIT)
 TRACE       <- [tT][rR][aA][cC][eE] !(LIMIT)
 PRINT       <- [pP][rR][iI][nN][tT] !(LIMIT)
 TYPE        <- [tT][yY][pP][eE] !(LIMIT)
+INLINE      <- [iI][nN][lL][iI][nN][eE] !(LIMIT)
+
 NUM
     <- [nN][uU][mM] !(LIMIT)
     /  [nN][uU][mM][bB][eE][rR] !(LIMIT)
@@ -328,6 +431,7 @@ FALSE
 
 # Zero or more white space characters
 _ <- WS*
+SP <- WS+
 
 # primitives
 LIMIT <- [a-zA-Z0-9_]
